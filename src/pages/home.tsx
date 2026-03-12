@@ -17,11 +17,11 @@ export default function Home() {
   const tasks = [
     { title: "Implement HTTP request parser", priority: "P0" },
     { title: "Solve binary search problems", priority: "P1" },
-    { title: "Read Go scheduler article", priority: "P1" },
+    { title: "Read Go scheduler article", priority: "P2" },
   ];
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-[#070709] text-[#e2e2ee]">
+    <div className="relative  h-screen w-screen overflow-hidden bg-[#070709] text-[#e2e2ee]">
       {/* Background Video */}
       <video
         ref={videoRef}
@@ -38,7 +38,7 @@ export default function Home() {
 
       {/* Grid overlay */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none -[#4141cf] absolute inset-0"
         style={{
           backgroundImage:
             "linear-gradient(rgba(167,139,250,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(167,139,250,0.025) 1px, transparent 1px)",
@@ -47,7 +47,7 @@ export default function Home() {
       />
 
       {/* App title */}
-      <div className="absolute top-12 left-12 z-10">
+      <div className="absolute  top-12 left-12 z-10">
         <h1
           className="italic"
           style={{
@@ -58,22 +58,18 @@ export default function Home() {
         >
           RYOKU
         </h1>
-
-        <p className="mt-2 text-[#6e6e90] text-sm tracking-widest">
-          FOCUS EXECUTION SYSTEM
-        </p>
       </div>
 
       {/* Focus Tasks */}
-      <div className="absolute bottom-12 left-12 z-10 w-[320px] space-y-4">
-        <div className="text-[10px] tracking-[4px] text-[#6e6e90] font-mono">
+      <div className="absolute border  bottom-12 left-12 z-10 w-[320px] space-y-1">
+        <div className="text-[10px] tracking-[4px] text-[#cbcbe1] font-mono">
           TODAY'S FOCUS
         </div>
 
         {tasks.map((task, i) => (
           <div
             key={i}
-            className="border border-[#1a1a26] bg-[#0d0d12] p-4 rounded-md hover:border-[#242438] transition"
+            className=" border-[#1a1a26] bg-[#0d0d12] p-4 rounded-md hover:border-[#242438] transition"
           >
             <div className="flex justify-between items-center">
               <span className="text-sm">{task.title}</span>

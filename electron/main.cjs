@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -8,6 +8,7 @@ function createWindow() {
   });
 
   win.loadURL("http://localhost:5173");
+  Menu.setApplicationMenu(null);
 }
 
 app.whenReady().then(createWindow);
