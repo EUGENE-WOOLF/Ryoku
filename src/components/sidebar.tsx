@@ -1,5 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import {
+  LayoutGrid,
+  CalendarDays,
+  LayoutDashboard,
+  Settings,
+} from "lucide-react";
 
 const initialTasks = [
   {
@@ -25,69 +31,12 @@ const priorityBg: Record<string, string> = {
 };
 
 const NAV = [
-  {
-    to: "/tasks",
-    label: "Tasks",
-    showBadge: true,
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        className="w-3.5 h-3.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="2" y="2" width="5" height="5" rx="1" />
-        <rect x="9" y="2" width="5" height="5" rx="1" />
-        <rect x="2" y="9" width="5" height="5" rx="1" />
-        <rect x="9" y="9" width="5" height="5" rx="1" />
-      </svg>
-    ),
-  },
-  {
-    to: "/planner",
-    label: "Planner",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        className="w-3.5 h-3.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="2" y="2" width="12" height="12" rx="1.5" />
-        <line x1="5" y1="5" x2="11" y2="5" />
-        <line x1="5" y1="8" x2="11" y2="8" />
-        <line x1="5" y1="11" x2="8" y2="11" />
-      </svg>
-    ),
-  },
+  { to: "/tasks", label: "Tasks", showBadge: true, icon: LayoutGrid },
+  { to: "/planner", label: "Planner", icon: CalendarDays },
+  { to: "/Dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
 
-const SYSTEM = [
-  {
-    to: "/settings",
-    label: "Settings",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        className="w-3.5 h-3.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="8" cy="8" r="2" />
-        <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M3.2 12.8l1.4-1.4M11.4 4.6l1.4-1.4" />
-      </svg>
-    ),
-  },
-];
+const SYSTEM = [{ to: "/settings", label: "Settings", icon: Settings }];
 
 const activeClass =
   "relative text-[#e2e2ee] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-0.5 before:bg-[#a78bfa] before:rounded-r";
@@ -129,61 +78,68 @@ export default function Sidebar() {
         <p className="px-[22px] pb-1.5 pt-4 font-mono text-[8px] tracking-[4px] text-[#3d3d5c] uppercase">
           Workspace
         </p>
-        {NAV.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `${baseClass} ${isActive ? activeClass : inactiveClass}`
-            }
-          >
-            <span className="opacity-55">{item.icon}</span>
-            <span className="flex-1">{item.label}</span>
-            {item.showBadge && tasks.filter((t) => !t.done).length > 0 && (
-              <span className="rounded-sm bg-[#f87171]/10 px-1.5 py-0.5 font-mono text-[8px] tracking-[1px] text-[#f87171]">
-                {tasks.filter((t) => !t.done).length}
-              </span>
-            )}
-          </NavLink>
-        ))}
+        {NAV.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `${baseClass} ${isActive ? activeClass : inactiveClass}`
+              }
+            >
+              <Icon size={14} className="opacity-55 flex-shrink-0" />
+              <span className="flex-1">{item.label}</span>
+              {item.showBadge && tasks.filter((t) => !t.done).length > 0 && (
+                <span className="rounded-sm bg-[#f87171]/10 px-1.5 py-0.5 font-mono text-[8px] tracking-[1px] text-[#f87171]">
+                  {tasks.filter((t) => !t.done).length}
+                </span>
+              )}
+            </NavLink>
+          );
+        })}
 
         <div className="mx-[22px] my-2.5 h-px bg-[#1a1a26]" />
+
         <p className="px-[22px] pb-1.5 pt-1 font-mono text-[8px] tracking-[4px] text-[#3d3d5c] uppercase">
           System
         </p>
-        {SYSTEM.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `${baseClass} ${isActive ? activeClass : inactiveClass}`
-            }
-          >
-            <span className="opacity-55">{item.icon}</span>
-            <span>{item.label}</span>
-          </NavLink>
-        ))}
+        {SYSTEM.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `${baseClass} ${isActive ? activeClass : inactiveClass}`
+              }
+            >
+              <Icon size={14} className="opacity-55 flex-shrink-0" />
+              <span>{item.label}</span>
+            </NavLink>
+          );
+        })}
       </nav>
 
       {/* Divider */}
       <div className="mx-[22px] mt-5 h-px bg-[#1a1a26]" />
 
       {/* Today's Focus */}
-      <div className="flex flex-col flex-1 overflow-hidden px-[22px] pt-4">
+      <div className="flex flex-1 flex-col overflow-hidden px-[22px] pt-4">
         <p className="mb-3 font-mono text-[8px] tracking-[4px] text-[#3d3d5c] uppercase">
           Today's focus
         </p>
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col">
           {tasks.map((task) => (
             <div
               key={task.id}
               onClick={() => toggleTask(task.id)}
-              className="group flex cursor-pointer items-start gap-3 py-2.5 border-b border-[#13131a] last:border-0"
+              className="group flex cursor-pointer items-start gap-3 border-b border-[#13131a] py-2.5 last:border-0"
             >
               {/* Checkbox */}
               <div
                 className={`mt-0.5 flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-sm border transition-all
-                ${task.done ? "border-[#a78bfa55] bg-[#a78bfa18]" : "border-[#2a2a3c] group-hover:border-[#3d3d5c]"}`}
+                  ${task.done ? "border-[#a78bfa55] bg-[#a78bfa18]" : "border-[#2a2a3c] group-hover:border-[#3d3d5c]"}`}
               >
                 {task.done && (
                   <svg width="7" height="5" viewBox="0 0 7 5" fill="none">
@@ -198,10 +154,10 @@ export default function Sidebar() {
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col gap-1 min-w-0">
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <span
                   className={`text-[11px] leading-snug transition-all
-                  ${task.done ? "text-[#3d3d5c] line-through" : "text-[#c0c0d8] group-hover:text-[#e2e2ee]"}`}
+                    ${task.done ? "text-[#3d3d5c] line-through" : "text-[#c0c0d8] group-hover:text-[#e2e2ee]"}`}
                   style={{ fontFamily: "sans-serif", fontWeight: 300 }}
                 >
                   {task.title}
