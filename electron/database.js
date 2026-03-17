@@ -9,12 +9,13 @@ db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 
 db.exec(`
+   
     CREATE TABLE IF NOT EXISTS tasks (
         id                INTEGER PRIMARY KEY AUTOINCREMENT,
         title             TEXT NOT NULL,
+        identity          TEXT,
         description       TEXT,
         priority          INTEGER NOT NULL DEFAULT 2,  -- 0=P0, 1=P1, 2=P2, 3=P3
-        estimated_minutes INTEGER NOT NULL DEFAULT 25,
         created_at        TEXT NOT NULL DEFAULT (datetime('now')),
         completed         INTEGER NOT NULL DEFAULT 0
     );
